@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search System with Storage</title>
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+    <div class="contaier">
+        <div class="header">
+            <h1>User Search</h1>
+            <hr>
+            <input type="text" placeholder="Search Users" id="Search">
+            <button id="clear">Clear</button>
+            </input>
+            <h3>Result :</h3>
+            <div id="user">
+                
+            </div>
+        </div>
+    </div>
+    <!-- <script>
+        const users= [
+        { name:"Rama" },
+        { name:"Ahmad" },
+        { name:"Ali" },
+        { name:"Sara" },
+        { name:"Lana" }
+        ];
+        let count = 1;
+
+        const AllUsers = document.getElementById('user');
+        const btnD = document.getElementsByClassName('btnD');
+        const search = document.getElementById('Search');
+        const btnClear = document.getElementById('clear');
+
+        //Display All users 
+        users.forEach(user => {
+            localStorage.setItem('user'+count , user.name);
+            
+            const card = document.createElement('div');
+            const name= document.createElement('span');
+            const btn = document.createElement('button');
+            btn.classList.add('btn');
+            btn.textContent = "Delete";
+            name.textContent = localStorage.getItem('user'+count);
+
+
+            card.appendChild(name);
+            card.appendChild(btn);
+
+            AllUsers.appendChild(card);
+
+            count++;
+        });
+
+
+
+        //Clear Button
+        btnClear.addEventListener('click',()=>{
+            count = 1;
+            AllUsers.innerHTML = "";
+            users.forEach(user => {                
+                const card = document.createElement('div');
+                const name= document.createElement('span');
+                const btn = document.createElement('button');
+                btn.classList.add('btn');
+                btn.textContent = "Delete";
+                name.textContent = localStorage.getItem('user'+count);
+
+
+                card.appendChild(name);
+                card.appendChild(btn);
+
+                AllUsers.appendChild(card);
+
+                count++;
+            });
+            search.value = null;
+        })
+
+        //Filtering user Data
+        search.addEventListener('input', ()=>{
+            const newAllUsers = users.map(e => {
+                if (e.name.includes(search.value)){
+                    return e;
+                }
+            });
+
+            newAllUsers.forEach(user=>{
+                console.log(user.name);
+                
+            })
+            
+            AllUsers.innerHTML ="";
+            users.forEach(user => {  
+                if (newAllUsers.includes(user.name)){
+                    const card = document.createElement('div');
+                    const name= document.createElement('span');
+                    const btn = document.createElement('button');
+                    btn.classList.add('btn');
+                    btn.textContent = "Delete";
+                    name.textContent = localStorage.getItem('user'+count);
+
+
+                    card.appendChild(name);
+                    card.appendChild(btn);
+
+                    AllUsers.appendChild(card);
+                }
+                
+
+                console.log(user.name);
+                console.log(newAllUsers.includes(user.name));
+                
+                count++;
+            });
+        })
+        document.body.appendChild(AllUsers);
+
+    </script> -->
+
+    <script>
+        const users =JSON.parse(localStorage.getItem('UsersTask3')) || [
+            { name: "Rama" },
+            { name: "Ahmad" },
+            { name: "Ali" },
+            { name: "Sara" },
+            { name: "Lana" }
+        ];
+
+        const AllUsers = document.getElementById('user');
+        const search = document.getElementById('Search');
+        const btnClear = document.getElementById('clear');
+        const btnDelete = document.getElementsByClassName('btnD');
+
+        function displayUsers(filteredUsers) {
+            AllUsers.innerHTML = ""; 
+            filteredUsers.forEach(user => {
+                const card = document.createElement('div');
+                card.classList.add('user-card'); 
+
+                card.innerHTML = `
+                    <div class="user-info">
+                        <span class="user-name">${user.name}</span>
+                    </div>
+                    <button class="btnD">Delete</button>
+                `;
+
+                card.querySelector('.btnD').addEventListener('click', () => {
+                    card.remove();
+                });
+
+                AllUsers.appendChild(card);
+            });
+        }
+
+        //Display All users
+        displayUsers(users);
+
+        //Clear Button
+        btnClear.addEventListener('click', () => {
+            search.value = "";
+            displayUsers(users);
+        });
+
+        //Search Bar
+        search.addEventListener('input', () => {
+            const searchValue = search.value.toLowerCase();
+            
+            const filtered = users.filter(user => 
+                user.name.toLowerCase().includes(searchValue)
+            );
+
+            displayUsers(filtered);
+        });
+    </script>
+</body>
+</html>

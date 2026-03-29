@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Save Simple Data</title>
+</head>
+<body>
+    <input type="text" id="data" placeholder="Enter Your Name">
+    <button id="btn">Save Name</button>
+    <script>
+        const btn = document.getElementById('btn');
+        const name = document.getElementById('data');
+        const displayName = document.createElement('h1');
+
+        btn.addEventListener('click',()=>{
+            if(name.value == ""){
+                console.log("Name is null");
+            }else{
+                localStorage.setItem("name",name.value);
+            }
+            displayName.textContent = localStorage.getItem('name');
+            document.body.appendChild(displayName);
+        });
+        displayName.textContent = localStorage.getItem('name');
+        document.body.appendChild(displayName);
+    </script>
+</body>
+</html>

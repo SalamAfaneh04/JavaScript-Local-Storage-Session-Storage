@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Object</title>
+</head>
+<body>
+    <form id="form">
+        <div class="Name">
+            <label for="Name"> Name :</label>
+            <input type="text" id="nameINPUT" required><br>
+        </div>
+        <div class="email">
+            <label for="email">Email :</label>
+            <input type="email"  id="emailINPUT" required>
+        </div>
+        <br>
+        <button type="submit" id="submit">Save Data</button>
+    </form>
+
+    <script>
+        const name = document.getElementById('nameINPUT');
+        const email = document.getElementById('emailINPUT');
+        const form = document.getElementById('form');
+        const displayName = document.createElement('h2');
+        const displayEmail = document.createElement('h2');
+
+        form.addEventListener('submit',()=>{
+            localStorage.setItem("name2", name.value);
+            localStorage.setItem("email", email.value);
+        });
+
+        displayName.textContent = localStorage.getItem("name2");
+        displayEmail.textContent = localStorage.getItem("email");
+        document.body.appendChild(displayName);
+        document.body.appendChild(displayEmail);
+
+    </script>
+
+</body>
+</html>
